@@ -5,7 +5,7 @@ import java.util.HashSet;
 
 public class WebServer {
 
-//	private Collection<Analizador> analizadores = new HashSet<Analizador>();
+	private Collection<Analizador> analizadores = new HashSet<Analizador>();
 	private Collection<Modulo> modulos = new HashSet<Modulo>();
 	
 	public  Respuesta atenderPedido(Pedido p){
@@ -45,7 +45,7 @@ public class WebServer {
 	}
 
 	private void analizar(Modulo m,Respuesta respuesta) {
-//		this.getAnalizadores().forEach(a -> a.registrar(m,respuesta));
+		this.getAnalizadores().forEach(a -> a.registrar(m,respuesta));
 	}
 
 	private Modulo obtenerModulo(Pedido p) {
@@ -56,17 +56,17 @@ public class WebServer {
 		return this.getModulos().stream().anyMatch(m -> m.puedeAtender(p) == true);
 	}
 
-//	public void agregarAnalizador(Analizador a){
-//		this.getAnalizadores.add(a);
-//	}
-//	
-//	public Collection<Analizador> getAnalizadores() {
-//		return analizadores;
-//	}
-//
-//	public void setAnalizadores(Collection<Analizador> analizadores) {
-//		this.analizadores = analizadores;
-//	}
+	public void agregarAnalizador(Analizador a){
+		this.getAnalizadores().add(a);
+	}
+	
+	public Collection<Analizador> getAnalizadores() {
+		return analizadores;
+	}
+
+	public void setAnalizadores(Collection<Analizador> analizadores) {
+		this.analizadores = analizadores;
+	}
 
 	public void agregarModulo(Modulo m){
 		this.getModulos().add(m);
