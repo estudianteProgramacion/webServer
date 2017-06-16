@@ -36,10 +36,16 @@ public class test {
 		ws.agregarModulo(new Modulo(extencionesAcpJS, "Este es el Modulo3", 333));
 		
 		Pedido p1 = new Pedido("1.1.1.1", LocalDateTime.now() , "http://www.google.com/index.js/");
-		
+		Pedido p2 = new Pedido("2.2.2.2", LocalDateTime.now() , "ftp://www.yahoo.com.ar/cas/explorer/index.js/");
 		
 		assertEquals(200, ws.atenderPedido(p1).getStatusCode());
-//		assertEquals(thi, actual);
+		assertEquals("/index.js/", ws.atenderPedido(p1).getRuta());
+		assertEquals(333, ws.atenderPedido(p1).getTiempo());
+		assertEquals("www.google.com", ws.atenderPedido(p1).getPedido().getDireccion());
+		
+		assertEquals(501, ws.atenderPedido(p2).getStatusCode());
+		assertEquals(0, ws.atenderPedido(p2).getTiempo());
+		assertEquals("", ws.atenderPedido(p2).getPayload());
 		
 	}
 
