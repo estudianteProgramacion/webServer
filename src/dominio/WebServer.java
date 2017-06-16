@@ -28,18 +28,18 @@ public class WebServer {
 		if ( p.getProtocolo().equals("http")){
 			respuesta = analizarYTrabajarModulo(p);
 		} else {
-			respuesta = new Respuesta( 501, "",0); //tiempo en 0
+			respuesta = new Respuesta(501,"",0); //tiempo en 0
 		}
 		return respuesta;
 	}
-
+ 
 	private Respuesta analizarYTrabajarModulo(Pedido p) {
 		Respuesta respuesta;
 		if (this.hayModuloQuefuncione(p)){
 			respuesta = this.obtenerModulo(p).atender(p);
 			respuesta.setStatusCode(200);
 		} else {
-			respuesta = new Respuesta (404, "", 0 );
+			respuesta = new Respuesta (404,"",0);
 		}
 		return respuesta;
 	}
