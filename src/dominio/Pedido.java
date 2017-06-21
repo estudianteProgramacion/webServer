@@ -17,10 +17,7 @@ public class Pedido {
 	}
 	
 	public String getProtocolo(){
-		System.out.println(getUrl().getProtocol());
 		return getUrl().getProtocol().toLowerCase();
-		
-	//	return this.getUrl().substring(0, url.indexOf(":")-1 ).toUpperCase();
 	}
 
 	public String getDireccion(){
