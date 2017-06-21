@@ -7,6 +7,10 @@ public class AnalizadorDemoras implements Analizador {
 	private int demoraMinima;
 	private Collection<ModuloRespuesta> modulosConRespuestas = new ArrayList<>();
 	
+	public AnalizadorDemoras(int demoraMinima){
+		this.setDemoraMinima(demoraMinima);
+	}
+	
 	public int getDemoraMinima() {
 		return demoraMinima;
 	}
