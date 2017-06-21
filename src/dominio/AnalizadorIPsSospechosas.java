@@ -7,6 +7,11 @@ public class AnalizadorIPsSospechosas implements Analizador {
 	private Collection<String> iPsSospechosas = new ArrayList<String>();
 	private ActividadSospechosa registroActividadSospechosa;
 	
+	public AnalizadorIPsSospechosas(Collection<String> ipSospechosas, ActividadSospechosa regAc){
+		this.setiPsSospechosas(ipSospechosas);
+		this.setRegistroActividadSospechosa(regAc);
+	}
+	
 	public AnalizadorIPsSospechosas(Collection<String> ipsSospechosas){
 		this.setiPsSospechosas(ipsSospechosas);
 		this.setRegistroActividadSospechosa(new ActividadSospechosa());
