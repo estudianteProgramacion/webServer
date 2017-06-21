@@ -84,14 +84,22 @@ public class testAnalizadores {
 		ws.atenderPedido(p1);
 		ws.atenderPedido(p2);
 		ws.atenderPedido(p3);
+
+		
 		
 		assertEquals(111.0, aEstadisticas.tiempoRespuestaPromedio(),0 );
+		assertEquals(3, aEstadisticas.cantidadDePedidosEntre(LocalDateTime.now().minusMinutes(10), LocalDateTime.now().plusMinutes(10)));
+		assertEquals(0, aEstadisticas.cantidadDePedidosEntre(LocalDateTime.now().minusMinutes(11), LocalDateTime.now().minusMinutes(10)));
+		assertEquals(1, aEstadisticas.cantidadDeRespuestaConString("modulo"));
+
+		
 		ws.atenderPedido(p4);
 		
 		assertEquals(2,aDemoras.cantidadDeRespuestasDemoradas(modulo3));
+		
 		assertEquals(1, registro.cantidadPedidosConRespuestaExitosa("1.1.1.1"));
 		assertEquals(true, registro.consultoRuta("1.1.1.1","/index.js/"));
-		assertEquals(0, registro.cantidadPedidosConRespuestaExitosa("1.1.1.1"));
+		assertEquals(0, registro.cantidadPedidosConRespuestaNoExitosa("1.1.1.1"));
 	}
 
 }
