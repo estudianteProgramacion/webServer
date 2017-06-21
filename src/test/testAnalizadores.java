@@ -35,27 +35,32 @@ public class testAnalizadores {
 		Collection<String> extencionesAcpJS = new HashSet<>();
 		extencionesAcpJS.add("js");
 		
-		ws.agregarModulo(new Modulo(extencionesAcpM1, "Este es el Modulo 1", 111));
-		ws.agregarModulo(new Modulo(extencionesAcpEXE, "Este es el Modulo 2", 222));
-		ws.agregarModulo(new Modulo(extencionesAcpJS, "Este es el Modulo 3", 333));
+		Modulo modulo1 = new Modulo(extencionesAcpM1, "Este es el Modulo 1", 111);
+		Modulo modulo2 = new Modulo(extencionesAcpEXE, "Este es el Modulo 2", 222);
+		Modulo modulo3 = new Modulo(extencionesAcpJS, "Este es el Modulo 3", 333);
+		ws.agregarModulo(modulo1);
+		ws.agregarModulo(modulo2);
+		ws.agregarModulo(modulo3);
 		
 		
 		
 		Pedido p1 = new Pedido("1.1.1.1", LocalDateTime.now() , "http://www.google.com/index.js/");
 		Pedido p2 = new Pedido("2.2.2.2", LocalDateTime.now() , "ftp://www.yahoo.com.ar/cas/explorer/index.js/");
 		Pedido p3 = new Pedido("2.2.2.2", LocalDateTime.now() , "http://www.take.es/cartera/dinero.php/");
-		
+		Pedido p4 = new Pedido("1.1.1.3", LocalDateTime.now() , "http://www.bin.com/home/index.js/");
 		//analizadores 
-		AnalizadorDemoras ADemoras = New AnalizadorDemoras(10);
+		AnalizadorDemoras aDemoras = new AnalizadorDemoras(112);
 		
 		Collection<String> ips = new ArrayList<String>();
 		ips.add("1.1.1.1");
 		ips.add("128.61.20.10");
 		ips.add("64.75.10.20");
 		ips.add("25.25.25.25");
-		AnalizadorIPsSospechosas ASospechosas = New AnalizadorIPsSospechosas(ips);
+		AnalizadorIPsSospechosas aSospechosas = new AnalizadorIPsSospechosas(ips);
 		
-		AnalizadorEstadisticas AEstadisticas = New AnalizadorEstadisticas();
+		AnalizadorEstadisticas aEstadisticas = new AnalizadorEstadisticas();
+		
+		
 		
 		assertEquals(200, ws.atenderPedido(p1).getStatusCode());
 		assertEquals("/index.js/", ws.atenderPedido(p1).getRuta());
@@ -68,8 +73,16 @@ public class testAnalizadores {
 		
 		assertEquals(404, ws.atenderPedido(p3).getStatusCode());
 		
-		
+		ws.agregarAnalizador(aEstadisticas);
+		ws.agregarAnalizador(aDemoras);
 		//test para analizadores
+		ws.atenderPedido(p1);
+		ws.atenderPedido(p2);
+		ws.atenderPedido(p3);
+		assertEquals(111.0, aEstadisticas.tiempoRespuestaPromedio(),0 );
+		ws.atenderPedido(p4);
+		
+		assertEquals(2,aDemoras.cantidadDeRespuestasDemoradas(modulo1));
 		
 	}
 

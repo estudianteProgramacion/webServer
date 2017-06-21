@@ -28,7 +28,9 @@ public class AnalizadorDemoras implements Analizador {
 	
 	@Override
 	public void registrar(Modulo unModulo, Respuesta unaRespuesta) {
-		this.getModulosConRespuestas().add(new ModuloRespuesta(unModulo, unaRespuesta));
+		if (!(unModulo == null)){
+			this.getModulosConRespuestas().add(new ModuloRespuesta(unModulo, unaRespuesta));
+		}
 		
 	}
 	

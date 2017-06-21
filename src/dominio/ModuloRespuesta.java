@@ -21,6 +21,7 @@ public class ModuloRespuesta {
 	}
 
 	public ModuloRespuesta(Modulo unModulo, Respuesta unaRespuesta){
+		
 		this.setModulo(unModulo);
 		this.setRespuesta(unaRespuesta);
 	};
