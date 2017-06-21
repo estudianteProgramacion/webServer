@@ -7,12 +7,17 @@ public class AnalizadorIPsSospechosas implements Analizador {
 	private Collection<String> iPsSospechosas = new ArrayList<String>();
 	private ActividadSospechosa registroActividadSospechosa;
 	
+	public AnalizadorIPsSospechosas(Collection<String> ipSospechosas, ActividadSospechosa regAc){
+		this.setiPsSospechosas(ipSospechosas);
+		this.setRegistroActividadSospechosa(regAc);
+	}
+	
 	public AnalizadorIPsSospechosas(Collection<String> ipsSospechosas){
 		this.setiPsSospechosas(ipsSospechosas);
 		this.setRegistroActividadSospechosa(new ActividadSospechosa());
 	}
 	
-	
+
 	public Collection<String> getiPsSospechosas() {
 		return iPsSospechosas;
 	}
@@ -30,8 +35,8 @@ public class AnalizadorIPsSospechosas implements Analizador {
 		if (iPsSospechosas.contains(unaRespuesta.getIp())) {
 			registroActividadSospechosa.registrarActividad(unaRespuesta.getIp(), unaRespuesta.getRuta(), unaRespuesta.getStatusCode());
 		}
-		else {throw new RuntimeException("la IP no contiene una actividad sospechosa");}
-
+	
 	}
-
+	
+	
 }

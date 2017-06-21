@@ -19,18 +19,18 @@ public class ActividadSospechosa {
 		this.getActividades().add(new Actividad(ip,ruta,statusCode));
 	}; 	
 
-	public int cantidadPedidosConRespuestaExitosa(int ip){
+	public int cantidadPedidosConRespuestaExitosa(String ip){
 		return this.getActividades().stream().filter(a -> a.getIp().equals(ip) && (a.getStatusCode() < 300)).distinct().collect(Collectors.toList()).size();
 	};
 		
 	
-	public int cantidadPedidosConRespuestaNoExitosa(int ip){
+	public int cantidadPedidosConRespuestaNoExitosa(String ip){
 		return this.getActividades().stream().filter(a -> a.getIp().equals(ip) && (a.getStatusCode() > 300)).distinct().collect(Collectors.toList()).size();
 		
 	}
 	  
 	public boolean consultoRuta(String ip, String ruta){
-		return this.getActividades().stream().filter(a -> a.getIp() == ip).findAny().get().getRuta() == ruta;
+		return this.getActividades().stream().filter(a -> a.getIp().equals(ip)).findAny().get().getRuta().equals(ruta);
 	
 	};
 	 
