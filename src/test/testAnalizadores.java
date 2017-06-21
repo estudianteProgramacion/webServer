@@ -10,6 +10,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
+import dominio.ActividadSospechosa;
 import dominio.AnalizadorDemoras;
 import dominio.AnalizadorEstadisticas;
 import dominio.AnalizadorIPsSospechosas;
@@ -56,7 +57,9 @@ public class testAnalizadores {
 		ips.add("128.61.20.10");
 		ips.add("64.75.10.20");
 		ips.add("25.25.25.25");
-		AnalizadorIPsSospechosas aSospechosas = new AnalizadorIPsSospechosas(ips);
+		
+		ActividadSospechosa registro = new ActividadSospechosa();
+		AnalizadorIPsSospechosas aSospechosas = new AnalizadorIPsSospechosas(ips, registro);
 		
 		AnalizadorEstadisticas aEstadisticas = new AnalizadorEstadisticas();
 		
@@ -73,17 +76,30 @@ public class testAnalizadores {
 		
 		assertEquals(404, ws.atenderPedido(p3).getStatusCode());
 		
+
 		ws.agregarAnalizador(aEstadisticas);
 		ws.agregarAnalizador(aDemoras);
+		ws.agregarAnalizador(aSospechosas);
 		//test para analizadores
 		ws.atenderPedido(p1);
 		ws.atenderPedido(p2);
 		ws.atenderPedido(p3);
+
+		
+		
 		assertEquals(111.0, aEstadisticas.tiempoRespuestaPromedio(),0 );
+		assertEquals(3, aEstadisticas.cantidadDePedidosEntre(LocalDateTime.now().minusMinutes(10), LocalDateTime.now().plusMinutes(10)));
+		assertEquals(0, aEstadisticas.cantidadDePedidosEntre(LocalDateTime.now().minusMinutes(11), LocalDateTime.now().minusMinutes(10)));
+		assertEquals(1, aEstadisticas.cantidadDeRespuestaConString("modulo"));
+
+		
 		ws.atenderPedido(p4);
 		
-		assertEquals(2,aDemoras.cantidadDeRespuestasDemoradas(modulo1));
+		assertEquals(2,aDemoras.cantidadDeRespuestasDemoradas(modulo3));
 		
+		assertEquals(1, registro.cantidadPedidosConRespuestaExitosa("1.1.1.1"));
+		assertEquals(true, registro.consultoRuta("1.1.1.1","/index.js/"));
+		assertEquals(0, registro.cantidadPedidosConRespuestaNoExitosa("1.1.1.1"));
 	}
 
 }

@@ -36,7 +36,7 @@ public class AnalizadorEstadisticas implements Analizador {
 	};
 	
 	public boolean contieneUn(String palabra, String unString){
-		if (unString.indexOf(palabra) > 0) {return true;}
+		if (palabra.toLowerCase().indexOf(unString.toLowerCase()) > -1) {return true;}
 		else {return false;}
 	};
 	

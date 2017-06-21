@@ -17,7 +17,7 @@ public class AnalizadorIPsSospechosas implements Analizador {
 		this.setRegistroActividadSospechosa(new ActividadSospechosa());
 	}
 	
-	
+
 	public Collection<String> getiPsSospechosas() {
 		return iPsSospechosas;
 	}
@@ -35,8 +35,8 @@ public class AnalizadorIPsSospechosas implements Analizador {
 		if (iPsSospechosas.contains(unaRespuesta.getIp())) {
 			registroActividadSospechosa.registrarActividad(unaRespuesta.getIp(), unaRespuesta.getRuta(), unaRespuesta.getStatusCode());
 		}
-		else {throw new RuntimeException("la IP no contiene una actividad sospechosa");}
-
+	
 	}
-
+	
+	
 }
